@@ -1,0 +1,21 @@
+Code::
+vector<int> door;
+void dfs(int v,vector<vector<int>> &rooms){
+    door[v]=1;
+    for(int i=0;i<rooms[v].size();i++){
+        if(door[rooms[v][i]]==0){
+            dfs(rooms[v][i],rooms);
+        }
+    }
+}
+bool canVisitAllRooms(vector<vector<int>>& rooms) {
+    int n=rooms.size();
+    door.assign(n,0);
+    dfs(0,rooms);
+    for(int i=0;i<n;i++){
+        if(door[i]==0){
+            return false;
+        }
+    }
+    return true;
+}

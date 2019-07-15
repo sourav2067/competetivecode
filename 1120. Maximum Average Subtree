@@ -1,0 +1,35 @@
+Code::
+double sum(TreeNode* root){
+        if(root==NULL){
+            return 0.000;
+        }
+        double s=sum(root->left);
+        s+=root->val;
+        s += sum(root->right);
+        return s;
+    }
+    pair<double,int> ut(TreeNode *root,int t){
+        if(root==NULL){
+            return (make_pair(INT_MIN,0));
+        }
+        pair<double,int> l,r;
+        l=ut(root->left,t);
+        r=ut(root->right,t);
+        t++;
+        if(l.first==INT_MIN){
+            l.first=0.00;
+        }else{
+            t+=l.second;
+        }
+        if(r.first==INT_MIN){
+            r.first=0.00;
+        }else{
+            t+=r.second;
+        }
+        double c=sum(root)/t;
+        return make_pair(max(max(l.first,r.first),c),t);    
+    }
+    double maximumAverageSubtree(TreeNode* root){
+        pair<double,int> u = ut(root,0);
+        return u.first;
+    }

@@ -1,0 +1,21 @@
+Code::
+vector<vector<int>> res;
+public:
+void ji(vector<int> &nums,int l,int y,vector<int> &temp){
+    if(temp.size()==l){
+        res.push_back(temp);
+    }
+    for(int i=y;i<nums.size();i++){
+        int t=nums[i];
+        temp.push_back(t);
+        ji(nums,l,i+1,temp);
+        temp.pop_back();
+    }
+}
+vector<vector<int>> subsets(vector<int>& nums) {
+   vector<int> temp;
+   for(int i=0;i<=nums.size();i++){
+        ji(nums,i,0,temp);
+    }
+    return res;
+}

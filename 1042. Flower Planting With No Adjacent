@@ -1,0 +1,41 @@
+Code::
+vector<vector<int>> graph;                           // graph 
+vector<int> plant;                                          // to store the plant type
+vector<int> cl ;                                              //to store vertex adjacent plant
+public:
+
+void dfs(int v){
+    cl.assign(5,0);
+    for(int i=0;i<graph[v].size();i++){
+        cl[plant[graph[v][i]]]=1;;
+    }
+    int y;
+    for(int i=1;i<5;i++){
+        if(cl[i]==0){
+            y=i;
+            break;
+        }
+    }
+    plant[v]=y;
+    for(int i=0;i<graph[v].size();i++){
+        if(plant[graph[v][i]]==0){
+            dfs(graph[v][i]);
+        }
+    }
+}
+
+vector<int> gardenNoAdj(int N, vector<vector<int>>& paths) {
+    graph.resize(N+1);
+    plant.assign(N+1,0);                                                                    //graph formation
+    for(int i=0;i<paths.size();i++){
+        graph[paths[i][0]].push_back(paths[i][1]);
+        graph[paths[i][1]].push_back(paths[i][0]);
+    }
+    for(int i=1;i<=N;i++){
+        if(plant[i]==0){
+            dfs(i);
+        }
+    }
+    plant.erase(plant.begin());
+    return plant;
+}

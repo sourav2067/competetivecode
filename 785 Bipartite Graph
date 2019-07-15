@@ -1,0 +1,29 @@
+Code:: 
+bool isBipartite(vector<vector<int>>& graph) {
+    vector<int> side(graph.size(),-1);
+    bool is_bipartite=1;
+    queue<int> q;
+    for(int u=0;u<graph.size();u++){
+        if(side[u]==-1){
+            side[u]=0;
+            q.push(u);
+            while(!q.empty()){
+                int v=q.front();
+                q.pop();
+                for(int i=0;i<graph[v].size();i++){
+                    if(side[graph[v][i]]==-1){
+                        side[graph[v][i]]=side[v]^1;
+                        q.push(graph[v][i]);
+                    }else{
+                        if(side[graph[v][i]]!=side[v]){
+                            is_bipartite&=1;
+                        }else{
+                            is_bipartite=0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return is_bipartite;
+}

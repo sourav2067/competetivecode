@@ -1,3 +1,3 @@
 # competetivecode
-hacker rank solutions
+Leetcode solutions
 https://github.com/sourav2067/competetivecode.git

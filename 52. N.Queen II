@@ -1,0 +1,38 @@
+Code::
+ int totalNQueens(int n) {
+        vector<int> r(n,0);
+        vector<int> c(n,0);
+        vector<int> d1(2*n,0);
+        vector<int> d2(2*n,0);
+        vector<int> pos(n,-1);
+        int i=0,j=0,u=0;
+        while(i>=0){
+            j=pos[i];
+            if(j>=0){
+                r[i]--;
+                c[j]--;
+                d1[i+j+1]--;
+                d2[n-i+j]--;
+                pos[i]=-1;
+            }
+            j++;
+            while(j<n && (r[i]>0 || c[j]>0 || d1[i+j+1]>0 || d2[n-i+j])){
+                j++;
+            }
+            if(j>=n){
+                i--;
+            }else{
+                r[i]++;
+                c[j]++;
+                d1[i+j+1]++;
+                d2[n-i+j]++;
+                pos[i]=j;
+                if(i==n-1){
+                    u++;
+                }else{
+                    i++;
+                }
+            }
+        }
+        return u;
+    }

@@ -1,0 +1,46 @@
+Code::
+vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> ans;
+        if(n == 0){
+            return ans;
+        }
+        vector<string> board(n,string(n, '.'));
+        vector<int> pos(n,-1);                 //position of Q in a given row;
+        vector<int> diag1(2*n,0);              //for storage of / diagnol i+j+1;
+        vector<int> diag2(2*n,0);              //for storage of \ diagnol n-i+j;
+        vector<int> r(n,0);                    //for row;
+        vector<int> c(n,0);                    //for column;
+        int i=0,j=0;
+        while(i >= 0){
+            j=pos[i];
+            if(j>=0){
+                r[i]--;
+                c[j]--;
+                diag1[i+j+1]--;
+                diag2[n-i+j]--;
+                board[i][j]='.';
+                pos[i]=-1;
+            }
+            j++;
+            while( j < n  && (r[i] > 0 || c[j] > 0 || diag1[i+j+1] > 0 || diag2[n-i+j] > 0)){
+                j++;
+            }
+            if(j>=n){
+                i--;
+            }
+            else{
+                r[i]++;
+                c[j]++;
+                diag1[i+j+1]++;
+                diag2[n-i+j]++;
+                pos[i]=j;
+                board[i][j]='Q';
+                if(i==n-1){
+                    ans.push_back(board);
+                }else{
+                    i++;
+                }
+            }
+        }
+        return ans;
+    }

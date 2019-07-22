@@ -1,0 +1,25 @@
+Code:
+string countAndSay(int n) {
+    vector<string> a;
+    a.push_back("1");
+    string d,s;
+    int y,c;
+    for(int i=1;i<n;i++){
+        s=a[i-1];
+        y=s.size()-1;
+        d="";
+        while(y>=0){
+            c=1;
+            while(y>=1 && s[y]==s[y-1]){
+                y--;
+                c++;
+            }
+            d+=s[y];
+            d+=to_string(c);
+            y--;
+        }
+        reverse(d.begin(),d.end());
+        a.push_back(d);
+    }
+    return a[n-1];
+}

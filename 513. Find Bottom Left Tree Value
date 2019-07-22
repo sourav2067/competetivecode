@@ -1,0 +1,20 @@
+Code:
+int findBottomLeftValue(TreeNode* root) {
+	queue<pair<TreeNode*,int>> q;
+	q.push(make_pair(root,0));
+     pair<TreeNode*,int> y;
+    while(!q.empty()){
+        y = q.front();
+        while(q.front().second==y.second){
+            pair<TreeNode*,int> t=q.front();
+            if(t.first->left){
+                q.push(make_pair(t.first->left,t.second+1));
+            }
+            if(t.first->right){
+                q.push(make_pair(t.first->right,t.second+1));
+            }
+            q.pop();
+        }
+    }
+    return y.first->val;
+}

@@ -1,0 +1,26 @@
+Code:
+int firstMissingPositive(vector<int>& nums){
+    map<int,int> m;
+    map<int,int>:: iterator itr;
+    for(int i=0;i<nums.size();i++){
+        itr=m.find(nums[i]);
+        if(itr==m.end()){
+            m.insert(make_pair(nums[i],1));
+        }
+    }
+    int i=0;
+    itr=m.begin();
+    int j=1;
+    while(i<nums.size() && itr!=m.end()){
+        
+        if(itr->first==j){
+            j++;
+        }
+        else if(itr->first>i){
+            break;
+        }
+        i++;
+        itr++;
+    }
+    return j;
+}

@@ -1,0 +1,24 @@
+Code:
+vector<vector<int>> generateMatrix(int n) {
+    vector<vector<int>> vis(n,vector<int>(n,0));           //to check if the given co-ordinate is visited before or not
+    vector<vector<int>> ans(n,vector<int>(n));
+    vector<vector<int>> dict={{0,1},{1,0},{0,-1},{-1,0}};  //to change direction
+    int co=1;                                                       //for input inside the ans vector
+    int r=0,c=0,di=0;
+    for(int i=0;i<n*n;i++){                                     //similar to somewhat bfs in matrix
+        ans[r][c]=co;
+        vis[r][c]=1;
+        co++;
+        int nr=r+dict[di][0];
+        int nc=c+dict[di][1];
+        if(nr>=0 && nr<n && nc>=0 && nc<n && vis[nr][nc]==0){
+            r=nr;
+            c=nc;
+        }else{
+            di=(di+1)%4;
+            r+=dict[di][0];
+            c+=dict[di][1];
+        }
+    }
+    return ans;
+}

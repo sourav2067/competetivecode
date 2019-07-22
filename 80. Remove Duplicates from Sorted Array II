@@ -1,0 +1,24 @@
+Code:
+int removeDuplicates(vector<int>& nums){
+    if(nums.size()==0){
+        return 0;
+    }
+    vector<int> a(nums.size(),0);                        //to store the current element count
+    a[0]=1;
+    for(int i=1;i<nums.size();i++){
+        if(nums[i]==nums[i-1]){
+            a[i]=a[i-1]+1;
+        }else{
+            a[i]=1;
+        }
+    }
+    for(int i=0;i<nums.size();){
+        if(a[i]>2){
+            nums.erase(nums.begin()+i);                   //modifications
+            a.erase(a.begin()+i);
+        }else{
+            i++;
+        }
+    }
+    return nums.size();
+}

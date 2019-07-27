@@ -1,0 +1,48 @@
+Code:
+bool isps(long long n){                                              //to check if a no. is perfect square
+    long long root=sqrt(n);
+    if(n==root*root){
+        return true;
+    }else{
+        return false;
+    }
+}
+int square(vector<int> a){                                                             //helping function
+    int n=a.size();
+    if(isps(a[n-1]+a[n-2]))
+        return 1;
+    else{
+        return 0;
+    }
+}
+void per(vector<int> A,int l,vector<int> &temp,int &c){                      //backtracking func
+    if(temp.size()==l){
+        c+=1;
+    }
+    for(int i=0;i<A.size();){
+        int t=A[i];
+        temp.push_back(t);
+        A.erase(A.begin()+i);
+        if(temp.size()>=2){
+            bool an=square(temp);
+            if(an==1){
+                per(A,l,temp,c);
+            }
+        }else{
+            per(A,l,temp,c);
+        }
+        temp.pop_back();
+        A.insert(A.begin()+i,t);
+        i++;
+        while(i<A.size() && A[i]==A[i-1]){
+            i++;
+        }
+    }
+}
+int numSquarefulPerms(vector<int>& A) { 
+    int c=0;
+    vector<int> temp;
+    sort(A.begin(),A.end());                                         //for duplicates
+    per(A,A.size(),temp,c);
+    return c;
+}

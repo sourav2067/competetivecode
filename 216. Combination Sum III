@@ -1,0 +1,20 @@
+Code:
+vector<vector<int>> ans;
+vector<int> temp;
+bool help(int k,int n,int x,int sum){
+    if(temp.size()==k &&  sum==n){
+        return true;
+    }
+    for(int i=x;i<=9;i++){
+        temp.push_back(i);
+        if(help(k,n,i+1,sum+i)){
+            ans.push_back(temp);
+        }
+        temp.pop_back(); //backtrack;
+    }
+    return false;
+}
+vector<vector<int>> combinationSum3(int k, int n){
+    help(k,n,1,0);
+    return ans;
+}

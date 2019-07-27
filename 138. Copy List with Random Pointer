@@ -1,0 +1,35 @@
+Code:
+Node* copyRandomList(Node* head) {
+        if(head==NULL){
+            return NULL;
+        }
+        Node *newnode,*nn,*rp,*pos;
+        Node* temp=head;
+        map<Node*,Node*> m;
+        while(temp!=NULL){
+            newnode=new Node;
+            newnode->val=temp->val;
+            m.insert(make_pair(temp,newnode));
+            cout<<temp->val;
+            temp=temp->next;
+        }
+        temp=head;
+        while(temp!=NULL){
+            cout<<"p";
+            nn=temp->next;
+            rp=temp->random;
+            pos=m.find(temp)->second;
+            if(nn!=NULL)
+                pos->next=m.find(nn)->second;
+            else{
+                pos->next=NULL;
+            }
+            if(rp!=NULL)
+                pos->random=m.find(rp)->second;
+            else
+                pos->random=NULL;
+            temp=temp->next;
+        }
+        cout<<6;
+        return m.find(head)->second;
+    }

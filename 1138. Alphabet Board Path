@@ -1,0 +1,60 @@
+Algorithm:create a hashmap containg char as key ans its co-ordinates as value. now starting from (0,0) we calculate the difference between target string char and our position in the hashmap and adding correct operation to aur ans string.
+NOTE: This approach only work if we follow only a particular order that is
+Left Down Up Right (because we have only z in last row so to save getting out of bound) or Left Up Down Right
+Code:
+string alphabetBoardPath(string target){
+    if(target.size()<1){
+        return "";
+    }
+    string ans="";
+    vector<string> board = {"abcde", "fghij", "klmno", "pqrst", "uvwxy", "z"};
+    int s=0;                                               // for index of target string
+    map<char,pair<int,int>> m;
+    for(int i=0;i<board.size();i++){                                       //creating  hashmap
+        for(int j=0;j<board[i].size();j++){
+            m.insert(make_pair(board[i][j],make_pair(i,j)));
+        }
+    }
+    map<char,pair<int,int>>:: iterator itr;
+    int i=0,j=0;
+    while(s<target.size()){                                              //loop for each char of target string  
+        itr = m.find(target[s]);
+        int o = itr->second.first;                                                    //for row
+        int p = itr->second.second;                                              //for column
+        int y=o,t=p; 
+        o=o-i;
+        p=p-j;
+        i=y;
+        j=t;
+        if(p<0){
+            p=(-1)*p;
+            while(p!=0){
+                ans+="L";
+                p--;
+            }
+        }
+        if(o>0){
+            while(o!=0){
+                ans+="D";
+                o--;
+            }
+        }if(o<0){
+            o=o*(-1);
+            while(o!=0){
+                ans+="U";
+                o--;
+            }
+        }
+        if(p>0){
+            while(p!=0){
+                ans+="R";
+                p--;
+            }
+        }
+        if(o==0 && p==0){
+            ans+="!";
+        }
+        s++;
+    }
+    return ans;
+}

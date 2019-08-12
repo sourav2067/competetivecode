@@ -1,0 +1,27 @@
+Code:
+ ListNode* func(ListNode* head,int len,int k){
+        if(len<k){
+            return head;
+        }
+        ListNode* f=head;
+        ListNode* d=head->next;
+        ListNode * t=head;
+        int y=k-1;
+        while(y--){
+            t=head;
+            head=d;
+            d=head->next;
+            head->next=t;
+        }
+        f->next=func(d,len-k,k);
+        return head;
+    }
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        int c=0;
+        ListNode* temp=head;
+        while(temp){
+            temp=temp->next;
+            c++;
+        }
+        return func(head,c,k);
+    }

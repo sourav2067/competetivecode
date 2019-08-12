@@ -1,0 +1,84 @@
+Code:
+ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        stack<int> s1,s2;
+        ListNode* t=l1;
+        while(t!=NULL){
+            s1.push(t->val);
+            t=t->next;
+        }
+        t=l2;
+        while(t!=NULL){
+            s2.push(t->val);
+            t=t->next;
+        }
+        stack<int> a;
+        if(s1.size()>s2.size()){
+            int carry=0;
+            while(!s1.empty() && !s2.empty()){
+                int r=s1.top();
+                int p=s2.top();
+                s1.pop();
+                s2.pop();
+                int v=r+p+carry;
+                carry=v/10;
+                a.push(v%10);
+            }
+            while(!s1.empty()){
+                int r=s1.top();
+                s1.pop();
+                int v=r+carry;
+                carry=v/10;
+                a.push(v%10);
+            }
+            if(carry!=NULL){
+                a.push(carry);
+            }
+            t=l1;
+            ListNode* prev=NULL;
+            while(t!=NULL){
+                t->val=a.top();
+                a.pop();
+                prev=t;
+                t=t->next;
+            }
+            if(t==NULL && !a.empty()){
+                ListNode* temp=new ListNode(a.top());
+                prev->next=temp;
+            }
+            return l1;
+        }else{
+            int carry=0;
+            while(!s1.empty() && !s2.empty()){
+                int r=s1.top();
+                int p=s2.top();
+                s1.pop();
+                s2.pop();
+                int v=r+p+carry;
+                carry=v/10;
+                a.push(v%10);
+            }
+            while(!s2.empty()){
+                int r=s2.top();
+                s2.pop();
+                int v=r+carry;
+                carry=v/10;
+                a.push(v%10);
+            }
+            if(carry!=NULL){
+                a.push(carry);
+            }
+            t=l2;
+            ListNode* prev=NULL;
+            while(t!=NULL){
+                t->val=a.top();
+                a.pop();
+                prev=t;
+                t=t->next;
+            }
+            if(t==NULL && !a.empty()){
+                ListNode* temp=new ListNode(a.top());
+                prev->next=temp;
+            }
+            return l2;
+        }
+    }

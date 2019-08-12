@@ -1,0 +1,50 @@
+Code:
+ ListNode* reve(ListNode* head){
+        ListNode* curr=head;
+        ListNode* prev=NULL;
+        ListNode* next;
+        while(curr!=NULL){
+            next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+        }
+        return prev;
+    } 
+    void reorderList(ListNode* head) {
+        if(head==NULL || head->next==NULL || head->next->next==NULL){
+            return ;
+        }
+        ListNode* slow=head;
+        ListNode* fast=head;
+        while(fast!=NULL && fast->next!=NULL){
+            fast=fast->next->next;
+            slow=slow->next;
+        }
+        ListNode* s=slow->next;
+        slow->next=NULL;
+        s=reve(s);
+        int r=1;
+        ListNode* dummy=new ListNode(0);
+        ListNode* t=dummy;
+        slow=head;
+        while(s!=NULL && slow!=NULL){
+            if(r==1){
+                t->next=slow;
+                slow=slow->next;
+                t=t->next;
+            }else{
+                t->next=s;
+                s=s->next;
+                t=t->next; 
+            }
+            r=r^1;
+        }
+        if(s!=NULL){
+            t->next=s;
+        }
+        else{
+            t->next=slow;
+        }
+        head=dummy->next;
+    }

@@ -1,0 +1,22 @@
+Code:
+ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        ListNode* temp1=l1,*temp2=l2;
+        ListNode* dummy= new ListNode(0);
+        ListNode* t=dummy;
+        while(temp1 && temp2){
+            if(temp1->val<temp2->val){
+                t->next=temp1;
+                temp1=temp1->next;
+            }else{
+                t->next=temp2;
+                temp2=temp2->next;
+            }
+            t=t->next;
+        }
+        if(temp1!=NULL){
+            t->next=temp1;
+        }else{
+            t->next=temp2;
+        }
+        return dummy->next;
+    }

@@ -1,0 +1,15 @@
+Code;
+ListNode* func(ListNode* head){
+        if(head==NULL || head->next==NULL){
+            return head;
+        }
+        ListNode* t=head;
+        head=head->next;
+        ListNode* d=head->next;
+        head->next=t;
+        t->next=func(d);
+        return head;
+    }
+    ListNode* swapPairs(ListNode* head) {
+        return func(head);
+    }

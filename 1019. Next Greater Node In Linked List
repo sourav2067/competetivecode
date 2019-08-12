@@ -1,0 +1,35 @@
+Code:
+vector<int> nextLargerNodes(ListNode* head) {
+        int c=0;
+        stack<pair<int,int>> s;
+        ListNode* t=head;
+        while(t!=NULL){
+            t=t->next;
+            c++;
+        }
+        cout<<c;
+        vector<int> ans(c,0);
+        t=head;
+        c=0;
+        while(t!=NULL){
+            if(s.empty()){
+                cout<<1<<" ";
+                s.push({t->val,c});
+            }else{
+                if(s.top().first>=t->val){
+                    cout<<2<<" ";
+                    s.push({t->val,c});
+                }else{
+                    while(!s.empty() && s.top().first<t->val){
+                        ans[s.top().second]=t->val;
+                        s.pop();
+                    }
+                    cout<<3<<" ";
+                    s.push({t->val,c});
+                }
+            }
+            t=t->next;
+            c++;
+        }
+        return ans;
+    }

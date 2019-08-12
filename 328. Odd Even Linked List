@@ -1,0 +1,23 @@
+Code:
+ ListNode* oddEvenList(ListNode* head) {
+        ListNode* de=new ListNode(0);
+        ListNode* t=de;
+        ListNode* dow=new ListNode(0);
+        ListNode* s=dow;
+        ListNode* temp=head;
+        int c=0;
+        while(temp!=NULL){
+            if(c%2==0){
+                t->next=temp;
+                t=t->next;
+            }else{
+                s->next=temp;
+                s=s->next;
+            }
+            c++;
+            temp=temp->next;
+        }
+        s->next=NULL;
+        t->next=dow->next;
+        return de->next;
+    }

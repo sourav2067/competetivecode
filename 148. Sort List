@@ -1,0 +1,49 @@
+Code:
+ ListNode* merge(ListNode* a,ListNode* b){
+        ListNode* result=NULL;
+        if(a==NULL){
+            return b;
+        }
+        if(b==NULL){
+            return a;
+        }
+        if(a->val <= b->val){
+            result=a;
+            result->next=merge(a->next,b);
+        }else{
+            result=b;
+            result->next=merge(a,b->next);
+        }
+        return result;
+    }
+    void partition(ListNode* head,ListNode** a,ListNode** b){
+        ListNode* slow=head;
+        ListNode* fast=slow->next;
+        while(fast!=NULL){
+            fast=fast->next;
+            if(fast!=NULL){
+                slow=slow->next;
+                fast=fast->next;
+            }
+        }
+        *a=head;
+        *b=slow->next;
+        slow->next=NULL;
+    }
+    void mergesort(ListNode** head){
+        if ((*head == NULL) || ((*head)->next == NULL)) { 
+            return; 
+        } 
+        ListNode* a,*b;
+        partition(*head,&a,&b);
+        mergesort(&a);
+        mergesort(&b);
+        *head=merge(a,b);
+    }
+    ListNode* sortList(ListNode* head) {
+        if(head==NULL || head->next==NULL){
+            return head;
+        }
+        mergesort(&head);
+        return head;
+    }

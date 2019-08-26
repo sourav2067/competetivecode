@@ -1,0 +1,22 @@
+Code:
+int maxEqualRowsAfterFlips(vector<vector<int>>& matrix) {
+        unordered_map<string,int> m;
+        for(int i=0;i<matrix.size();i++){
+            string s="";
+            int x=matrix[i][0];
+            for(int j=0;j<matrix[0].size();j++){
+                if(matrix[i][j]==x){
+                    s+='1';
+                }else{
+                    s+='0';
+                }
+            }
+            m[s]++;
+        }
+        unordered_map<string,int>:: iterator itr;
+        int ans=0;
+        for(itr=m.begin();itr!=m.end();itr++){
+            ans=max(ans,itr->second);
+        }
+        return ans;
+    }
